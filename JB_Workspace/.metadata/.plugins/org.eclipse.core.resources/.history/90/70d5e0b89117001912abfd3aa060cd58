@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+<link rel="stylesheet" href="libs\css\angular-datepicker.css">
+
+
+<!-- <link rel="stylesheet" href=""/> -->
+<!-- <script src="libs\JS\vue.js"></script> -->
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\JS\angular\angular-datepicker.js"></script>
+<script src="libs\JS\JQuery.js"></script>
+
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+
+<script src="JS\infraController.js"></script>
+<script src="JS\infraRouter.js"></script>
+<script src="JS\machineController.js"></script>
+
+
+</head>
+<body ng-app="InfraModule">
+
+
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+
+	<div class="container" ng-controller="infraRequestController">
+
+		<div class="" ng-show="showRequest">
+
+
+			<div id="stepProcess" ng-init="init()">
+				<div class="stepwizard ">
+					<div class="stepwizard-row setup-panel">
+						<div class="stepwizard-step">
+							<a href="" type="button" class="btn btn-primary btn-circle">1</a>
+							<p class="steps">Step1</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="" type="button" class="btn btn-circle"
+								ng-class="{  'btn-default': isDisabled2,'btn-primary': !isDisabled2  }"
+								:disabled=isDisabled2>2</a>
+							<p class="steps">Step 2</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="" type="button" class="btn  btn-circle"
+								ng-:class="{  'btn-default': isDisabled3,'btn-primary': !isDisabled3  }"
+								:disabled=isDisabled3>3</a>
+							<p class="steps">Step 3</p>
+						</div>
+					</div>
+				</div>
+
+				<form role="form">
+
+					<div class="setup-content" id="step-1" data-ng-show="showStep1">
+						<div class="jumbotron">
+							<div class=" form-group " ng-class="{'has-error':userIDError}">
+								<label for="userid">D Number</label> <input type="text"
+									class="form-control has-error" id="userID"
+									placeholder="Enter D Number" required> <small
+									id="Error" ng-show="userIDError" class="form-text text-muted">Please
+									enter valid D Number </small>
+							</div>
+							<div class="form-group" ng-class="{'has-error':emailIDError}">
+								<label for="emailID">Email ID</label> <input type="email"
+									class="form-control" id="emailID" placeholder="Enter Email ID"
+									required> <small id="error"
+									class="form-text text-muted" ng-show="emailIDError">Please
+									enter valid email id, should end with @team.telstra.com</small>
+							</div>
+							<div class=" form-group">
+								<label for="teamLable">Select Team Name</label> <select
+									class="form-control" id="teamName" required>
+									<option ng-repeat="teamName in teamNames">{{teamName.REFERENCE_NAME}}</option>
+
+								</select>
+							</div>
+							<div class=" form-group">
+								<label for="project">Project</label> <select
+									class="form-control" id="projectName" required>
+									<option ng-repeat="projectName in projectNames">{{projectName.REFERENCE_NAME}}</option>
+
+								</select>
+
+							</div>
+
+							<div class=" form-group">
+								<label for="team">Purpose</label>
+								<textarea rows="4" cols="50" maxlength="250"
+									class="form-control" id="Purpose" aria-describedby="teamHelp"
+									placeholder="Enter Purpose Details"></textarea>
+								<!--  <small id="userIDHelp" class="form-text text-muted">Enter user id.</small> -->
+							</div>
+							
+							
+
+
+						</div>
+						<div class=" form-group">
+
+							<div Class="nextResquest">
+								<button type="button"
+									class="btn col-md-2  next-button btn-primary pull-right"
+									ng-click="nextStep()">Next</button>
+							</div>
+						</div>
+						
+						
+
+					</div>
+
+					<div class="setup-content " id="step-2" data-ng-show="showStep2">
+						<div class="jumbotron">
+							<div class=" form-group">
+								<label>Select Software's</label>
+							</div>
+							<div class="checkboxgroup" style="padding-bottom: 5px;">
+
+								<div class="">
+
+									<table class="table ">
+										<thead>
+											<th>Software</th>
+											<th>Required</th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="software in softwares">
+												<td>{{software.REFERENCE_NAME}}</td>
+												<td>
+													<!-- <div class="btn-group pull-right">
+														<button type="button" class="btn default"
+															ng-class="{'btn-success':selectedSoftware}"
+															data-ng-click="switches(software.REFERENCE_NAME, $index)"
+															data-toggle="button">Required</button>
+
+														<button type="button" class="btn "
+															ng-class="{'btn-danger':notRequired,'':!notRequired}"
+															data-ng-click="reverseSwitches(software.REFERENCE_NAME, $index)"
+															data-toggle="button">Not Required</button>
+													</div> -->
+													<div class="can-toggle ">
+														<input id="{{software.REFERENCE_NAME}}"
+															class="softwareSelected" type="checkbox"> <label
+															for="{{software.REFERENCE_NAME}}">
+															<div class="can-toggle__switch" data-checked="Yes"
+																data-unchecked="No"></div>
+
+														</label>
+													</div>
+												</td>
+
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+
+
+
+							</div>
+							
+							<!-- Date Range -->
+							<div class="row date-range">
+							<div class="col-sm-6">
+							<div class="form-group ">
+							<div class="">
+							<label for="exampleSelect1">Select Start Date</label>
+							<datepicker date-format="dd-MM-yyyy" date-min-limit="{{minDate}}" date-max-limit="{{maxStartDate}}">
+							<input ng-model="Startdate" type="text" id="minDate"  placeholder="Select Date(dd-mm-YYYY)" class="form-control"/ ng-change="setEndDate(Startdate)"> </datepicker>
+							
+							</div>
+							<small id="error"
+									class="form-text text-muted" ng-show="minDateError">Please
+									enter valid Date(dd/mm/yyyy)</small>
+							</div>
+							</div>
+							
+							<div class="col-sm-6">
+							<div class="form-group ">
+							<div class="">
+							<label for="exampleSelect1">Select End Date</label>
+							<datepicker selector="form-control" id="maxDate" date-format="dd-MM-yyyy" date-min-limit="{{minEndDate}}" date-max-limit="{{maxEndDate}}"> 
+							<input ng-model="Enddate" type="text"  placeholder="Select Date(dd-mm-YYYY)" class="form-control" ng-disabled="maxDateSelectDisabled" /> </datepicker>
+							
+							</div>
+							<small id="error"
+									class="form-text text-muted" ng-show="maxDateError">Please
+									enter valid Date(dd-mm-yyyy)</small>
+							</div>
+							</div>
+							
+							</div>
+							<!-- Date Range Ends -->
+							
+
+							<div class=" form-group">
+								<label for="exampleSelect1">Select Machine Count</label> <select
+									class="form-control" id="machineSelected" required>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</div>
+
+						</div>
+						<div class=" form-group">
+							<div Class="nextResquest2">
+								<button type="button" class="btn col-md-2  btn-secondary"
+									data-ng-click="previousStep1()">Previous Step</button>
+								<button type="button"
+									class="btn col-md-2 next-button btn-primary pull-right"
+									data-ng-click="nextStep2()">Next Step</button>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="setup-content" id="step-3" data-ng-show="showStep3">
+						<div class="jumbotron " id="ConfirmationPage"
+							ng-show="ConfirmRequest">
+							<div align="center">
+								<p>
+									<b>Cloud machines are available for the request</b>
+								<p>
+							</div>
+							<p>
+								<b>Please confirm and submit following request details</b>
+							</p>
+							<table class="table ">
+								<thead>
+
+								</thead>
+								<tbody>
+									<tr>
+										<td>User ID</td>
+										<td>{{UserID}}</td>
+
+									</tr>
+									<tr>
+										<td>Email ID</td>
+										<td>{{EmailProvided}}</td>
+
+									</tr>
+									<tr>
+										<td>Team Name</td>
+										<td>{{TeamName}}</td>
+
+									</tr>
+									<tr>
+										<td>Project</td>
+										<td>{{Project}}</td>
+
+									</tr>
+									<tr>
+										<td>Requested Cloud Machine Count</td>
+										<td>{{AllocatingCount}}</td>
+
+									</tr>
+									<tr>
+										<td>Software Build</td>
+										<td>Initial build(Tosca 11.3, Oracle client, TCS file)</td>
+
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div>
+						<div class="jumbotron " id="ConfirmationPage"
+							ng-show="ConfirmBuildRequest">
+							<div align="center">
+								<p>
+									<b>Cloud machines available for the installation</b>
+								<p>
+							</div>
+							<p>
+								<b>Please confirm and submit following request details<b></b>
+							</p>
+							<table class="table ">
+								<thead>
+
+								</thead>
+								<tbody>
+									<tr>
+										<td>User ID</td>
+										<td>{{UserID}}</td>
+
+									</tr>
+									<tr>
+										<td>Email ID</td>
+										<td>{{EmailProvided}}</td>
+
+									</tr>
+									<tr>
+										<td>Team Name</td>
+										<td>{{TeamName}}</td>
+
+									</tr>
+									<tr>
+										<td>Project</td>
+										<td>{{Project}}</td>
+
+									</tr>
+									<tr>
+										<td>Requested Cloud Machine Count</td>
+										<td>{{AllocatingCount}}</td>
+
+									</tr>
+									<tr>
+										<td>Software Build</td>
+										<td>Initial build(Tosca 11.3, Oracle client, TCS file)</td>
+
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class=" form-group">
+							<div Class="nextResquest3">
+								<button type="button" class="btn col-md-2  btn-secondary"
+									data-ng-click="previousStep2()">Previous Step</button>
+								<button type="Submit" ng-show="ConfirmRequest"
+									class="btn col-md-2 next-button btn-primary pull-right"
+									data-ng-click="SubmitResquest()">Submit</button>
+								<button type="Submit" ng-show="ConfirmBuildRequest"
+									class="btn col-md-2 next-button btn-primary pull-right"
+									data-ng-click="SubmitInstalationResquest()">Submit</button>
+							</div>
+						</div>
+					</div>
+
+
+				</form>
+			</div>
+
+		</div>
+		<div class="jumbotron" ng-if="showResultConfirmation">
+
+			<div align="center">
+				<p class="">
+					<b>Following machines will be allocated to {{TeamName}} for
+						project {{Project}}</b>
+				</p>
+			</div>
+			<table class="table ">
+				<thead>
+					<tr>
+						<th>Machine Name</th>
+						<th>Application</th>
+						<th>Build Comments</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="result in resultConfirmation">
+						<td>{{result.MACHINENAME}}</td>
+						<td>{{result.APPLICATION}}</td>
+						<td>{{result.BUILD_COMMENTS}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class=" form-group">
+
+				<div Class="nextResquest" ng-if="showResultConfirmation">
+					<button type="button"
+						class="btn col-md-2  next-button btn-primary pull-right"
+						ng-click="init()">New Request</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="jumbotron" ng-if="showInstallationStatus">
+
+			<div align="center">
+				<p class="">
+					<b>Following machines are initiated for software installation
+						requested by team {{TeamName}} project {{Project}}</b>
+				</p>
+			</div>
+			<table class="table ">
+				<thead>
+					<tr>
+						<th>Machine Name</th>
+						<th>Request Number</th>
+						<th>Build Comments</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="result in resultConfirmation">
+						<td>{{result.MACHINENAME}}</td>
+						<td>{{result.REQUEST_NUMBER}}</td>
+						<td>{{result.BUILD_COMMENTS}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class=" form-group" ng-if="showInstallationStatus">
+
+			<div Class="nextResquest">
+				<button type="button"
+					class="btn col-md-2  next-button btn-primary pull-right"
+					ng-click="init()">New Request</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<!-- <script src="bundle.js"></script> -->
+</body>
+</html>

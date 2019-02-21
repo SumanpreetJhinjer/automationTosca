@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+<link rel="stylesheet" href="libs\css\angular-datepicker.css">
+
+
+<!-- <link rel="stylesheet" href=""/> -->
+<!-- <script src="libs\JS\vue.js"></script> -->
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\JS\angular\angular-datepicker.js"></script>
+<script src="libs\JS\JQuery.js"></script>
+
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+
+<script src="JS\infraController.js"></script>
+<script src="JS\infraRouter.js"></script>
+<script src="JS\machineController.js"></script>
+<script src="JS\naviBar.js"></script>
+
+
+</head>
+<body ng-app="InfraModule">
+
+
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+
+	<div class="container" ng-controller="infraRequestController">
+
+		<div class="" ng-show="showRequest">
+
+
+			<div id="stepProcess" ng-init="init()">
+				<div class="stepwizard ">
+					<div class="stepwizard-row setup-panel">
+						<div class="stepwizard-step">
+							<a href="" type="button" class="btn btn-primary btn-circle">1</a>
+							<p class="steps">App Details</p>
+						</div>
+
+					</div>
+				</div>
+
+				<form role="form">
+
+					<div class="setup-content" id="step-1" data-ng-show="showStep1">
+
+
+						<div class="jumbotron">
+							<div class=" form-group">
+								<label>Splunk on-boarding request details</label>
+							</div>
+							<div class=" form-group required"
+								ng-class="{'has-error':appname}">
+								<label for="appname">App Name</label> <input type="text"
+									class="form-control has-error" id="appname"
+									placeholder="Enter appname" required> <small id="Error"
+									ng-show="appname" class="form-text text-muted">Please
+									enter valid App Name </small>
+							</div>
+							<div class="form-group required"
+								ng-class="{'has-error':hostname}">
+								<label for="hostname">Host Name</label> <input type="text"
+									class="form-control" id="hostname" placeholder="Enter hostname"
+									required> <small id="error"
+									class="form-text text-muted" ng-show="hostname">Please
+									enter valid host name</small>
+							</div>
+							<div class=" form-group required">
+								<label for="environment">Environment</label> <select
+									ng-model="environment" class="form-control" id="environment"
+									required ng-change="getEnvType()">
+									<option value="" selected disabled>Please select</option>
+									<option ng-repeat="envName in envNames">{{envName.ENV}}</option>
+
+								</select> <small id="Error" ng-show="projectError"
+									class="form-text text-muted">Please Select Environment
+									Name </small>
+							</div>
+
+							<div class=" form-group required">
+								<label for="type">Type</label> <select class="form-control"
+									id="type" required>
+									<option value="" selected disabled>Please select</option>
+									<option ng-repeat="envType in envTypes">{{envType.TYPE}}</option>
+
+								</select> <small id="Error" ng-show="projectError"
+									class="form-text text-muted">Please Select Environment
+									Name </small>
+							</div>
+							
+							<div class=" form-group required"
+								ng-class="{'has-error':installDrive}">
+								<label for="installDrive">Installation Drive Path</label> <input type="text"
+									class="form-control has-error" id="installDriveSelected"
+									placeholder="Enter Drive Path" required> <small id="Error"
+									ng-show="installDrive" class="form-text text-muted">Please
+									enter valid Drive Path </small>
+							</div>
+
+							<!-- <div class=" form-group">
+								<label for="installDrive">Select Installation Drive</label> <select
+									class="form-control" id="installDriveSelected" required>
+									<option value="" selected disabled>Please select</option>
+									<option value="C">C</option>
+									<option value="D">D</option>
+									<option value="E">E</option>
+									<option value="F">F</option>
+									<option value="G">G</option>
+								</select>
+							</div>
+
+							<div class=" form-group">
+								<label for="otherdrive">Select Other Available Drives</label> <select
+									multiple class="form-control" id="otherDriveSelected"
+									name="otherDriveSelected[]" required>
+									<option value="C">C</option>
+									<option value="D">D</option>
+									<option value="E">E</option>
+									<option value="F">F</option>
+									<option value="G">G</option>
+								</select>
+							</div> -->
+							
+							<div class=" form-group required"
+								ng-class="{'has-error':otherdrive}">
+								<label for="otherdrive">Other Drive Paths</label> <input type="text"
+									class="form-control has-error" id="otherDriveSelected"
+									placeholder="Enter Other Path" required> <small id="Error"
+									ng-show="otherdrive" class="form-text text-muted">Please
+									enter valid Drive Paths </small>
+							</div>
+
+							
+
+							<div class="form-group required"
+								ng-class="{'has-error':emailIDError}">
+								<label for="emailID">Support DL</label> <input type="email"
+									class="form-control" id="emailID" placeholder="Enter Email ID"
+									required> <small id="error"
+									class="form-text text-muted" ng-show="emailIDError">Please
+									enter valid email id, should end with @team.telstra.com</small>
+							</div>
+
+							<div class=" form-group">
+								<label for="OS">Select OS</label> <select class="form-control"
+									id="osSelected" required>
+									<option value="" selected disabled>Please select</option>
+									<option value="Windows">Windows</option>
+									<option value="Linux">Linux</option>
+									<option value="Solaris">Solaris</option>
+									<option value="Cloud">Cloud</option>
+								</select>
+							</div>
+							
+							<div class="form-group required"
+								ng-class="{'has-error':version}">
+								<label for="version">Support DL</label> <input type="text"
+									class="form-control" id="version" placeholder="Enter Email ID"
+									required> <small id="error"
+									class="form-text text-muted" ng-show="emailIDError">Please
+									enter valid email id, should end with @team.telstra.com</small>
+							</div>
+
+
+						</div>
+
+						<div class=" form-group">
+
+							<div Class="nextResquest">
+								<button type="button"
+									class="btn col-md-2  next-button btn-primary pull-right"
+									ng-click="SubmitInstalationResquest()">Submit</button>
+							</div>
+						</div>
+
+
+
+					</div>
+
+
+
+
+
+				</form>
+			</div>
+
+		</div>
+		<div class="jumbotron" ng-if="showResultConfirmation">
+
+			<div align="center">
+				<p class="">
+					<b>Following request {{requestNumber}} initiated by {{emailID}} for
+						project {{appname}}</b>
+				</p>
+			</div>
+			<table class="table ">
+				<thead>
+					<tr>
+						<th>Machine Name</th>
+						<th>Application</th>
+						<th>Build Comments</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="result in resultConfirmation">
+						<td>{{result.MACHINENAME}}</td>
+						<td>{{result.APPLICATION}}</td>
+						<td>{{result.BUILD_COMMENTS}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class=" form-group">
+
+				<div Class="nextResquest" ng-if="showResultConfirmation">
+					<button type="button"
+						class="btn col-md-2  next-button btn-primary pull-right"
+						ng-click="init()">New Request</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="jumbotron" ng-if="showInstallationStatus">
+
+			<div align="center">
+				<p class="">
+					<b>Following machines are initiated for software installation
+						requested by team {{TeamName}} project {{Project}}</b>
+				</p>
+			</div>
+			<table class="table ">
+				<thead>
+					<tr>
+						<th>Machine Name</th>
+						<th>Request Number</th>
+						<th>Build Comments</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="result in resultConfirmation">
+						<td>{{result.MACHINENAME}}</td>
+						<td>{{result.REQUEST_NUMBER}}</td>
+						<td>{{result.BUILD_COMMENTS}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class=" form-group" ng-if="showInstallationStatus">
+
+			<div Class="nextResquest">
+				<button type="button"
+					class="btn col-md-2  next-button btn-primary pull-right"
+					ng-click="init()">New Request</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<!-- <script src="bundle.js"></script> -->
+</body>
+</html>

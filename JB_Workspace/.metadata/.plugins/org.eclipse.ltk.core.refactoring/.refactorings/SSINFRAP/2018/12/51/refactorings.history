@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SSINFRAP/WebContent/emailReports/NewFile.html&apos; to &apos;buildRequestEmail.html&apos;" description="Rename resource &apos;NewFile.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/emailReports/NewFile.html" name="buildRequestEmail.html" stamp="1545269150923" updateReferences="true"/>
+</session>

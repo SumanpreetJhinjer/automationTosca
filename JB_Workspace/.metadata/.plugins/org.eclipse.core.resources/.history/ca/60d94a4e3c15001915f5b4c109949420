@@ -1,0 +1,144 @@
+var InfraApp=angular.module('InfraModule',['720kb.datepicker']);
+
+InfraApp.controller('infraRequestController', ['$http', '$rootScope', '$scope','$interval',
+	        function($http, $rootScope, $scope, $interval) {
+		
+		$scope.loading=true;
+		$scope.showRequest=true;
+		
+		Date.prototype.addDays = function(days) {
+		    this.setDate(this.getDate() + parseInt(days));
+		    return this;
+		};
+		
+		let date=new Date();
+		
+		$scope.minDate = date.toDateString();
+		$scope.maxStartDate=date.addDays(4).toDateString();
+		
+		
+		let endDate=new Date()
+		$scope.minEndDate = endDate.toDateString();
+		$scope.maxEndDate=endDate.addDays(95).toDateString();
+		
+		
+		
+		infraRouter.getTeamName($scope, $http);
+		infraRouter.getprojectName($scope, $http);
+		infraRouter.getsoftwareName($scope, $http);
+		
+		$scope.init=function()
+		{
+			$scope.showResultConfirmation=false;
+			$scope.showInstallationStatus=false;
+			$scope.showRequest=true;
+			$scope.showStep1=true;
+			$scope.showStep2=false;
+			$scope.showStep3=false;
+			$scope.isDisabled2=true;
+			$scope.isDisabled3=true;
+			
+		};
+		$scope.nextStep=function()
+		{
+			let userID=document.getElementById("userID").value;
+			let EmailProvided=document.getElementById("emailID").value;
+			let userIDPattern=new RegExp("D[0-9]{6}","i");
+			let emailPattern=new RegExp("@team.telstra.com$")
+			if(userIDPattern.test(userID)){
+				$scope.userIDError=false;
+			}else $scope.userIDError=true;
+			
+			if(emailPattern.test(EmailProvided)){
+				$scope.emailIDError=false;
+			}else $scope.emailIDError=true; 
+			
+			if(!$scope.userIDError){
+				$scope.showStep1=false;
+				$scope.showStep2=true;
+				$scope.showStep3=false;
+				$scope.isDisabled2=false;
+			}
+			
+			
+		};
+		$scope.nextStep2=function()
+		{
+			$scope.showStep1=false;
+			$scope.showStep2=false;
+			$scope.showStep3=true;
+			$scope.isDisabled3=false;
+			let machine=document.getElementById("machineSelected")
+			$scope.machineCountSelected =machine.value;
+			$scope.UserID=document.getElementById("userID").value;
+			
+			$scope.EmailProvided=document.getElementById("emailID").value;
+			let team=document.getElementById("teamName");
+			$scope.TeamName=team.value;
+			let project=document.getElementById("projectName");
+			$scope.Project=project.value;
+				
+			$scope.softwareSelected = document.querySelector('.softwareSelected:checked').value;
+			//alert($scope.softwareSelected);
+			
+			let dateReg="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$";
+			let minDate=document.getElementById("minDate").value;
+			
+			alert("Min Date "+minDate+"  reg "+minDate.match(dateReg));
+			
+			infraRouter.getAvailableMachineCount($scope, $http,$scope.machineCountSelected);
+		};
+		$scope.previousStep1=function(){
+			$scope.showStep1=true;
+			$scope.showStep2=false;
+			$scope.showStep3=false;
+		};
+		$scope.previousStep2=function(){
+			$scope.showStep1=false;
+			$scope.showStep2=true;
+			$scope.showStep3=false;
+		};
+		$scope.SubmitResquest=function(){
+			
+			const parameters={
+					userID:$scope.UserID,
+					emailID:$scope.EmailProvided,
+					teamName:$scope.TeamName,
+					project:$scope.Project,
+					purpose:"This "/*document.getElementById("purpose").value*/,
+					machineCount:$scope.machineCountSelected
+					
+			}
+			infraRouter.updateMachineRequestDetails($scope, $http,parameters);
+		};
+		$scope.SubmitInstalationResquest=function(){
+			
+			const parameters={
+					userID:$scope.UserID,
+					emailID:$scope.EmailProvided,
+					teamName:$scope.TeamName,
+					project:$scope.Project,
+					purpose:"This "/*document.getElementById("purpose").value*/,
+					machineCount:$scope.machineCountSelected
+					
+			}
+			infraRouter.updateCleanMachineRequestDetails($scope, $http,parameters);
+		};
+		
+		$scope.notRequired=true;
+		$scope.selectedSoftware=false;
+		
+		$scope.switches=function(software,index){
+			$scope.selectedSoftware=true;
+			$scope.notRequired=false;
+			
+		};
+		$scope.reverseSwitches=function(software,index){
+			$scope.notRequired=true;
+			$scope.selectedSoftware=false;
+			
+		};
+		
+		
+		
+	}]);

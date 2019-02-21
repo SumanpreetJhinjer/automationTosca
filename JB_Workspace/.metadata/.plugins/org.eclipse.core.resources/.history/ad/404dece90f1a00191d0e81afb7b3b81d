@@ -1,0 +1,57 @@
+var InfraApp=angular.module('InfraStatusModule',[]);
+
+InfraApp.controller('infraStatusController', ['$http', '$rootScope', '$scope','$interval',
+    function($http, $rootScope, $scope, $interval) {
+	
+	infraRouter.getAddedProjectNames($scope, $http);
+	infraRouter.getAddedTeamNames($scope, $http);
+	infraRouter.getAssignedOwnerDetails($scope, $http);
+	
+	var teamSelected=document.getElementById("teamSelected");
+	var projectSelected=document.getElementById("projectSelected");
+	var ownerSelected=document.getElementById("ownerSelected")
+	
+	$scope.getTeamAssociatedProject=function(){
+		
+		const parameters={
+				projectSlected:projectSelected.value;
+		}
+		$scope.projectSlectedPass=projectSlected;
+		infraRouter.getAddedTeamNames($scope, $http,parameters);
+		//alert("projectSlected"+projectSlected);
+	}
+	$scope.getOwnerName=function(teamSelected){
+		const parameters={
+				projectSlected:$scope.projectSlectedPass,
+				teamSelected:teamSelected
+		}
+		infraRouter.getAssignedOwnerDetails($scope, $http,parameters);
+		
+	}
+	
+	$scope.showAllocatedList=false;
+	
+	$scope.getAssignedDetails=function(){
+		
+		$scope.teamSelected =teamSelected.value;
+		
+		$scope.projectSelected =projectSelected.value;
+		
+		$scope.ownerSelected =ownerSelected.value;
+		
+		const parameters={
+				teamSelected:$scope.teamSelected,
+				projectSelected:$scope.projectSelected,
+				ownerSelected:$scope.ownerSelected
+		}
+		infraRouter.getCloudVDIDetails($scope, $http, parameters);
+		
+	}
+	
+	$scope.reset=function(){
+		$scope.projectSelected='';
+		$scope.teamSelected='';
+		$scope.ownerDetails='';
+	}
+	
+}]);

@@ -1,0 +1,179 @@
+package infra.getDetails;
+
+import infra.FactorySet.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import infra.DBConnections.ApplicationConnection;
+
+public class UserDetails {
+	ApplicationConnection appCon=new ApplicationConnection();
+	FactoryMethods fm= new FactoryMethods();
+	
+	public  ArrayList<HashMap<String, Object>> getTeamName(){
+		
+		ArrayList<HashMap<String, Object>> teamNames = null;
+		String query="select REFERENCE_NAME from infra_reference_data where reference_id='TEAM'";
+		//Connection con=appCon.applicationDBConnection();
+		
+		try(Statement smt=appCon.applicationDBConnection().createStatement()){
+			 ResultSet rs = smt.executeQuery(query);
+			 teamNames = fm.resultSetToArrayList(rs);
+			 //con.close();
+		}catch(Exception E) {
+			System.out.println("Exception "+E);
+		}
+		
+		return teamNames;
+		
+	}
+	
+public  ArrayList<HashMap<String, Object>> getProjectName(){
+		
+		ArrayList<HashMap<String, Object>> projectNames = null;
+		String query="select REFERENCE_NAME from infra_reference_data where reference_id='PROJECT'";
+		
+		
+		try(Statement smt=appCon.applicationDBConnection().createStatement()){
+			 ResultSet rs = smt.executeQuery(query);
+			 projectNames = fm.resultSetToArrayList(rs);
+			 //con.close();
+		}catch(Exception E) {
+			System.out.println("Exception "+E);
+		}
+		finally {
+			try {
+				appCon.applicationDBConnection().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return projectNames;
+		
+	}
+	
+public  ArrayList<HashMap<String, Object>> getAddedTeamNamelist(HashMap details){
+	
+	String whereCondition="";
+	
+	if(details!=null) {
+		String projectSelected = (String) details.get("projectSlected");
+		String teamSelected = (String) details.get("teamSelected");
+		String allocatedOwner = (String) details.get("ownerSelected");
+		
+		if(projectSelected!=null)
+		{
+			whereCondition= whereCondition + " AND PROJECT='"+projectSelected+"'" ;
+		}
+		if(teamSelected!=null) 
+		{
+			whereCondition= whereCondition + " AND ASSIGNED_TEAM='"+teamSelected+"'";
+		}
+		if(allocatedOwner!=null) {
+			whereCondition= whereCondition + " AND OWNER='"+allocatedOwner+"'";
+		}
+	}
+	
+	
+	ArrayList<HashMap<String, Object>> teamNames = null;
+	String query="select distinct ASSIGNED_TEAM from infra_machinedetails where ASSIGNED_STATUS='Not Available' "+whereCondition;
+		
+	try(Statement smt=appCon.applicationDBConnection().createStatement()){
+		 ResultSet rs = smt.executeQuery(query);
+		 teamNames = fm.resultSetToArrayList(rs);
+		 //con.close();
+	}catch(Exception E) {
+		System.out.println("Exception "+E);
+	}
+	finally {
+		try {
+			appCon.applicationDBConnection().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return teamNames;
+	
+}
+
+public  ArrayList<HashMap<String, Object>> getAddedProjectNamelist(HashMap details) {
+	
+	ArrayList<HashMap<String, Object>> projectsList = null;
+	String query="select distinct PROJECT from infra_machinedetails where PROJECT is not null";
+		
+	try(Statement smt=appCon.applicationDBConnection().createStatement()){
+		 ResultSet rs = smt.executeQuery(query);
+		 projectsList = fm.resultSetToArrayList(rs);
+		 //con.close();
+	}catch(Exception E) {
+		System.out.println("Exception "+E);
+	}
+	finally {
+		try {
+			appCon.applicationDBConnection().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return projectsList;
+	
+}
+
+public ArrayList<HashMap<String, Object>> getAssignedOwnerDetails(HashMap details) {
+	
+	String whereCondition="";
+	
+	if(details!=null) {
+		
+		String projectSelected = (String) details.get("projectSlected");
+		String teamSelected = (String) details.get("teamSelected");
+		String allocatedOwner = (String) details.get("ownerSelected");
+		
+		if(projectSelected!=null)
+		{
+			whereCondition= whereCondition + " AND PROJECT='"+projectSelected+"'" ;
+		}
+		if(teamSelected!=null) 
+		{
+			whereCondition= whereCondition + " AND ASSIGNED_TEAM='"+teamSelected+"'";
+		}
+		if(allocatedOwner!=null) {
+			whereCondition= whereCondition + " AND OWNER='"+allocatedOwner+"'";
+		}
+	}
+	
+	
+	ArrayList<HashMap<String, Object>> ownersList = null;
+	
+	String query="select distinct OWNER from infra_machinedetails where   ASSIGNED_STATUS='Not Available' "+whereCondition;
+	
+	try(Statement smt=appCon.applicationDBConnection().createStatement()){
+		 ResultSet rs = smt.executeQuery(query);
+		 ownersList = fm.resultSetToArrayList(rs);
+		 //con.close();
+	}catch(Exception E) {
+		System.out.println("Exception "+E);
+	}finally {
+		try {
+			appCon.applicationDBConnection().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return ownersList;
+}
+
+}

@@ -1,0 +1,10 @@
+var InfraApp=angular.module('InfraStatusModule',[]);
+
+InfraApp.controller('infraStatusController', ['$http', '$rootScope', '$scope','$interval',
+    function($http, $rootScope, $scope, $interval) {
+	
+	$scope.getAssignedDetails=function(){
+		
+	}
+	
+}]);

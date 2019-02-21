@@ -1,0 +1,10 @@
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+<script src="libs\JS\JQuery.js"></script>
+
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+

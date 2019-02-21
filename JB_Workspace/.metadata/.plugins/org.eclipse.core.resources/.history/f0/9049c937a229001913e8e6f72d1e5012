@@ -1,0 +1,160 @@
+package infra.RESTAPI;
+
+
+import infra.getDetails.*;
+
+import javax.ws.rs.core.UriInfo;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
+
+@Path("/api")
+public class InfraApiCall {
+	@Context 
+	private UriInfo uri;
+	
+	@GET
+	@Path("/hello")
+	@Produces(MediaType.TEXT_PLAIN)
+	  public String sayPlainTextHello() {
+	    return "Hello Jersey";
+	  }
+	
+	
+	@GET
+	@Path("/getTeams")
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getTeamName() {
+		UserDetails user=new UserDetails();
+	    return user.getTeamName();
+	  }
+	
+	@GET
+	@Path("/getProjects")
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getProjectName() {
+		UserDetails user=new UserDetails();
+	    return user.getProjectName();
+	  }
+	
+	@GET
+	@Path("/getSoftwares")
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getSoftwaresName() throws SQLException {
+		SoftwareDetails software=new SoftwareDetails();
+	    return software.getSoftwareName();
+	  }
+	
+	@GET
+	@Path("/availableMachineCount")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getAvailableMachineCount() throws SQLException {
+		MachineDetails machine=new MachineDetails();
+	    return machine.getMachineCount();
+	  }
+	
+	@GET
+	@Path("/availableCleanMachineCount")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getAvailableCleanMachineCount() {
+		MachineDetails machine=new MachineDetails();
+	    return machine.getCleanMachineCount();
+	  }
+	
+	@POST
+	@Path("/updateCleanMachineDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<HashMap<String, Object>> updateCleanMachineDetails(HashMap details) throws FileNotFoundException, IOException {
+		
+		MachineDetails machine=new MachineDetails();
+		String serverPath = uri.getBaseUri().toString();
+		ArrayList<HashMap<String, Object>> machineDetails=machine.UpdateCleanMachineDetails(details,serverPath);
+		return  machineDetails;
+	  }
+	
+	@POST
+	@Path("/updateMachineDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<HashMap<String, Object>> updateMachineDetails(HashMap details) throws FileNotFoundException, IOException {
+		
+		MachineDetails machine=new MachineDetails();
+		String serverPath = uri.getBaseUri().toString();
+		ArrayList<HashMap<String, Object>> machineDetails=machine.UpdateMachineDetails(details,serverPath);
+		return  machineDetails;
+	  }
+	
+	@POST
+	@Path("/getAddedTeamNames")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getAddedTeamNames(HashMap details) {
+		UserDetails user=new UserDetails();
+	    return user.getAddedTeamNamelist(details);
+	  }
+	
+	@POST
+	@Path("/getAddedProjectNames")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getAddedProjectNames(HashMap details) {
+		UserDetails user=new UserDetails();
+	    return user.getAddedProjectNamelist(details);
+	  }
+	
+	@POST
+	@Path("/getAssignedOwnerDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getAssignedOwnerDetails(HashMap details) {
+		UserDetails user=new UserDetails();
+	    return user.getAssignedOwnerDetails(details);
+	  }
+	
+	@POST
+	@Path("/getCloudVDIDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<HashMap<String, Object>> getCloudVDIDetails(HashMap details)  {
+		
+		MachineDetails machine=new MachineDetails();
+		
+		ArrayList<HashMap<String, Object>> allocatedMachineDetails=machine.allocatedMachineDetails(details);
+		return  allocatedMachineDetails;
+	  }
+	
+	/* FAQ's */
+	@GET
+	@Path("/questionAndAnswers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<HashMap<String, Object>> questionAndAnswers()  {
+		
+		FAQ faq=new FAQ();
+		ArrayList<HashMap<String, Object>> questionAndAnswers=faq.getQandA();
+		
+		return  questionAndAnswers;
+	}
+	
+	@GET
+	@Path("/getEnvs")
+	@Produces(MediaType.APPLICATION_JSON)
+	  public ArrayList<HashMap<String, Object>> getEnvName() {
+		UserDetails user=new UserDetails();
+	    return user.getEnvName();
+	  }
+}

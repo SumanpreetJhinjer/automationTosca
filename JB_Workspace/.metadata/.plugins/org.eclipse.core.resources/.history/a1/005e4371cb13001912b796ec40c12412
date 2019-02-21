@@ -1,0 +1,6 @@
+var InfraApp=angular.module('InfraModule',[]);
+
+InfraApp.controller('infraStatusController', ['$http', '$rootScope', '$scope','$interval',
+    function($http, $rootScope, $scope, $interval) {
+	
+}]);

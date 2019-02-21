@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet"
+	href="libs\bootstrap\css\bootstrap-select.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\JS\JQuery.js"></script>
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+<script src="libs\bootstrap\js\bootstrap-select.min.js"></script>
+<script src="JS\infraStatusController.js"></script>
+<script src="JS\infraRouter.js"></script>
+</head>
+
+<body ng-app="InfraStatusModule">
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+	<div class="container" ng-controller="infraStatusController">
+		<div class="jumbotron">
+		<form name="assignedStatusForm">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class=" form-group required">
+						<label for="project">Select Project</label> 
+						<select class="form-control" id="projectSelected" required>
+							<option value="" selected disabled>Please select</option>
+							<option ng-repeat="addedProjectName in addedProjectNames">{{addedProjectName.PROJECT}}</option>
+
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class=" form-group required">
+						<label class="" for="teamLable">Select Team Name</label>
+						<div class="">
+							<select class="form-control " id="teamSelected" required>
+								<option value="" selected disabled>Please select</option>
+								<option ng-repeat="addedTeamName in addedTeamNames">{{addedTeamName.ASSIGNED_TEAM}}</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class=" form-group ">
+						<label class="" for="teamLable">Select the Owner</label>
+
+						<!-- <input class="form-control" id="myInput" type="text" placeholder="Search.."> -->
+						<!-- <select class="form-control selectpicker" data-live-search="true">
+							<option value="" selected disabled>Please select</option>
+							<option data-tokens="other" ng-repeat="AssignedOwnerDetail in AssignedOwnerDetails" ng-binding>{{AssignedOwnerDetail.OWNER}}</option>
+
+						</select> -->
+						<select class="form-control " id="ownerSelected" >
+								<option value="" selected disabled>Please select</option>
+								<option ng-repeat="AssignedOwnerDetail in AssignedOwnerDetails">{{AssignedOwnerDetail.OWNER}}</option>
+
+							</select>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row assignedStatus">
+				<div class=" form-group">
+					<div Class="">
+						<button type="reset"
+							class="btn col-md-2  reset-Status btn-secondary" data-ng-click="">Reset</button>
+						<button type="button"
+							class="btn col-md-2 submit-Status btn-primary pull-right"
+							data-ng-click="getAssignedDetails() " ng-disabled="assignedStatusForm.$valid">Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		</div>
+		<div class="jumbotron " id="ConfirmationPage"
+			ng-show="showAllocatedList">
+			<div align="center">
+				<p>
+					<b>Following cloud Machines are allocated </b>
+				<p>
+			</div>
+
+			<table class="table ">
+				<thead>
+					<th>Cloud Machine</th>
+					<th>Application</th>
+					<th>Owner</th>
+					<th>End Date</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="assignedCloudVDI in assignedCloudVDIS">
+						<td>{{assignedCloudVDI.MACHINENAME}}</td>
+						<td>{{assignedCloudVDI.APPLICATION}}</td>
+						<td>{{assignedCloudVDI.OWNER}}</td>
+						<td>No Data</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

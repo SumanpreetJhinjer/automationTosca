@@ -1,0 +1,34 @@
+package infra.getDetails;
+
+import infra.FactorySet.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import infra.DBConnections.ApplicationConnection;
+
+public class FAQ {
+	
+public  ArrayList<HashMap<String, Object>> getTeamName(){
+		
+		ArrayList<HashMap<String, Object>> teamNames = null;
+		String query="select REFERENCE_NAME from infra_reference_data where reference_id='TEAM'";
+		//Connection con=appCon.applicationDBConnection();
+		
+		try(Statement smt=appCon.applicationDBConnection().createStatement()){
+			 ResultSet rs = smt.executeQuery(query);
+			 teamNames = fm.resultSetToArrayList(rs);
+			 //con.close();
+		}catch(Exception E) {
+			System.out.println("Exception "+E);
+		}
+		
+		return teamNames;
+		
+	}
+
+}

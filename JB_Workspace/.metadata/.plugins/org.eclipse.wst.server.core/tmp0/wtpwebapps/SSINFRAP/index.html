@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet"
+	href="libs\bootstrap\css\bootstrap-select.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+
+
+<script src="libs\JS\JQuery.js"></script>
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+<script src="libs\bootstrap\js\bootstrap-select.min.js"></script>
+<script src="JS\home.js"></script>
+</head>
+
+<body ng-app="InfraHomeModule">
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+	<div class="container" ng-controller="infraHomeController">
+		<div class="jumbotron">
+			<div class="header " align="center">
+				<strong class="welcomeMessage"> Welcome to Enablers
+					Environment Self Serve Portal</strong>
+			</div>
+			
+			<div class="updatesDiv">
+			<h4 class="updatesHeading">Updates from the hub</h4>
+  				<div class="well updatesContent">updates sample</div>
+			</div>
+		</div>
+		
+		
+		<div class="jumbotron">
+			
+			<div align="center">
+				<h4 class="welcomeContent">The Self Serve Portal provides the
+					following Options</h4>
+				<!-- <hr class="star-light"></hr> -->
+				<div class="row rowAlign" align="center">
+					<div class="col-sm-4">
+					<a class="welcomePageAnchor" href="/SSINFRAP/vdiMachineRequest.html" 
+					title="Request for Software" data-placement="auto">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+
+								<span class="homeIcon glyphicon glyphicon-check"></span>
+								<h6 class="innerHeading">Create On-boarding Request</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Splunk on-boarding will be initiated based on your request</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col-sm-4">
+					<a class="welcomePageAnchor" href="/SSINFRAP/assignedStatus.html"
+					title="Request for Software" data-placement="auto">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+								<span class="homeIcon glyphicon glyphicon-lamp"></span>
+								<h6 class="innerHeading">On-boarding Status</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">On-boarding status can be checked here</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<!-- <div class="col-sm-4">
+					<a class="welcomePageAnchor" href="/SSINFRAP/vdiSoftwareRequest.html"
+					title="Request for Software" data-placement="auto">
+						<div class="welcomeContentExpand">
+						
+							<div class="row innerRow">
+								<span class="homeIcon glyphicon glyphicon-circle-arrow-down"></span>
+								<h6 class="innerHeading">Software Download</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Request for Software Download e.g.
+									Drift, GiT, Java, Putty etc</p>
+							</div>
+						</div>
+						</a>
+					</div>
+
+					<div class="col-sm-4">
+					<a class="welcomePageAnchor"  href="#" 
+					title="Request for Software" data-placement="auto">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+								<span class="homeIcon glyphicon glyphicon-hand-right"></span>
+								<h6 class="innerHeading">Allocated VDI's</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Display VDI allocations by
+									Application /Project / Owner(requestor)</p>
+							</div>
+						</div>
+						</a>
+					</div> -->
+					<div class="col-sm-4">
+					<a  class="welcomePageAnchor"  href="#" 
+					title="Request for Software" data-placement="auto">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+								<span class="homeIcon glyphicon glyphicon-question-sign"></span>
+								<h6 class="innerHeading">Wiki Link</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Useful Links and information about
+									cloud VDI's and Automation softwares</p>
+							</div>
+						</div>
+						</a>
+					</div>
+
+					<div class="col-sm-4">
+					<a class="welcomePageAnchor"  href="#" 
+					title="Request for Software" data-placement="auto">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+								<span class="homeIcon glyphicon glyphicon-info-sign"></span>
+								<h6 class="innerHeading">Help</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Contact and useful updates</p>
+							</div>
+						</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

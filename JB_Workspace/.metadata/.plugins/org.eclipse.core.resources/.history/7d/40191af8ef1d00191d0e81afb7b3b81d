@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet"
+	href="libs\bootstrap\css\bootstrap-select.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+
+
+<script src="libs\JS\JQuery.js"></script>
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+<script src="libs\bootstrap\js\bootstrap-select.min.js"></script>
+<script src="JS\home.js"></script>
+</head>
+
+<body ng-app="InfraHomeModule">
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+	<div class="container" ng-controller="infraHomeController">
+		<div class="jumbotron">
+			<div class="header " align="center">
+				<strong class="welcomeMessage"> Welcome to Enablers
+					Infrastructure Self Serve Portal</strong>
+			</div>
+			<p class="welcomeContent">The Self Serve Portal provides the
+				following Options</p>
+			<ul>
+				<li>Request for VDI VDIs will be allocated and built based on
+					your requirements</li>
+				<li>Request for Software Select required software from a list
+					and install on VDI</li>
+				<li>Request for Software Download e.g. Drift, GiT, Java, Putty
+					etc</li>
+				<li>Display VDI allocations by Application /Project /
+					Owner(requestor)</li>
+				<li>Wiki Link to Infrastructure Documentation</li>
+				<li>Help  Contact Details</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet"
+	href="libs\bootstrap\css\bootstrap-select.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+
+
+<script src="libs\JS\JQuery.js"></script>
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+<script src="libs\bootstrap\js\bootstrap-select.min.js"></script>
+<script src="JS\home.js"></script>
+</head>
+
+<body ng-app="InfraHomeModule">
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+	<div class="container" ng-controller="infraHomeController">
+		<div class="jumbotron">
+			<div class="header " align="center">
+				<strong class="welcomeMessage"> Welcome to Enablers
+					Infrastructure Self Serve Portal</strong>
+			</div>
+
+
+			
+
+			<!-- <div class="welcomeContentExpand" style="background-color: #2a75a9;">
+				<h2>Request for VDI</h2>
+				<p>VDIs will be allocated and built based on
+					your requirements</p>
+			</div> -->
+
+			<div align="center">
+			<p class="welcomeContent">The Self Serve Portal provides the
+				following Options</p>
+			<!-- <hr class="star-light"></hr> -->
+				<div class="row rowAlign" align="center">
+					<div class="col-sm-4">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+							
+							<span class="homeIcon glyphicon glyphicon-check"></span>
+								<h6 class="innerHeading">Request for VDI</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p>VDIs will be allocated and built based on your
+									requirements</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+							<span class="homeIcon glyphicon glyphicon-lamp"></span>
+								<h6 class="innerHeading">Request for Software</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Select required software from a list and install on VDI</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+							<span class="homeIcon glyphicon glyphicon-circle-arrow-down"></span>
+								<h6 class="innerHeading">Software Download</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Request for Software Download e.g. Drift, GiT, Java,
+									Putty etc</p>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-sm-4">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+							<span class="homeIcon glyphicon glyphicon-hand-right"></span>
+								<h6 class="innerHeading">Allocated VDI's</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Display VDI allocations by Application /Project /
+									Owner(requestor)</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+							<span class="homeIcon glyphicon glyphicon-question-sign"></span>
+								<h6 class="innerHeading">Wiki Link</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Useful Links and information about cloud VDI's and
+									Automation softwares</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="welcomeContentExpand">
+							<div class="row innerRow">
+							<span class="homeIcon glyphicon glyphicon-info-sign"></span>
+								<h6 class="innerHeading">Help</h6>
+							</div>
+							<div class="row innerRowContent">
+								<p class="innerContent">Contact and useful updates</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

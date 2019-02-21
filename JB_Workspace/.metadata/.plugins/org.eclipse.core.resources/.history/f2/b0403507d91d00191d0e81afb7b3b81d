@@ -1,0 +1,20 @@
+<nav class="navbar navbar-inverse fixed-top " >
+		<div class="container-fluid" >
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/SSINFRAP">Self Serve Infrastructure Portal</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active" ><a href="/SSINFRAP">VDI Request</a></li>
+				<li class="active"><a href="/SSINFRAP/assignedStatus.html">VDI Allocation Status</a></li>
+				<li class="active" ><a href="/SSINFRAP">VDI Request</a></li>
+				<li class="active"><a href="/SSINFRAP">Software Installation</a></li>
+				<li class="active" ><a href="/SSINFRAP">Software Download</a></li>
+				<li class="active"><a href="/SSINFRAP">Wiki Link</a></li>
+				
+
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			<li class="active"><a href="/SSINFRAP">Help</a></li>
+			</ul>
+		</div>
+	</nav>

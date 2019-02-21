@@ -1,0 +1,7 @@
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /SSINFRAP/ HTTP/1.1" 304 -
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /SSINFRAP/libs/bootstrap/css/bootstrap-select.min.css HTTP/1.1" 304 -
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /SSINFRAP/libs/css/styles.css HTTP/1.1" 304 -
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /SSINFRAP/JS/home.js HTTP/1.1" 304 -
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /SSINFRAP/libs/bootstrap/js/bootstrap-select.min.js HTTP/1.1" 304 -
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /SSINFRAP/Header.html HTTP/1.1" 304 -
+10.111.129.173 - - [03/Feb/2019:22:19:41 +1100] "GET /favicon.ico HTTP/1.1" 404 1085

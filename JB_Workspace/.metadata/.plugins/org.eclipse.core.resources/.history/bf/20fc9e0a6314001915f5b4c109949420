@@ -1,0 +1,24 @@
+var InfraApp=angular.module('InfraStatusModule',[]);
+
+InfraApp.controller('infraStatusController', ['$http', '$rootScope', '$scope','$interval',
+    function($http, $rootScope, $scope, $interval) {
+	
+	infraRouter.getAddedTeamNames($scope, $http);
+	infraRouter.getAddedProjectNames($scope, $http);
+	
+	$scope.getAssignedDetails=function(){
+		let teamSelected=document.getElementById("teamSelected")
+		$scope.teamSelected =teamSelected.value;
+		let projectSelected=document.getElementById("projectSelected")
+		$scope.projectSelected =projectSelected.value;
+		
+		const parameters={
+				teamSelected:$scope.teamSelected,
+				projectSelected:$scope.projectSelected
+		}
+		$http.post('rest/api/getCloudVDIDetails',parameters).then(function (response) {
+			alert(response.data)
+		});
+	}
+	
+}]);

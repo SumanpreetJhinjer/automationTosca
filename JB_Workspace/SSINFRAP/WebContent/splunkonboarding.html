@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Environment Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+<link rel="stylesheet" href="libs\css\angular-datepicker.css">
+<link rel="shortcut icon" type="image/png" href="/SSENVP/TelstraLogo.png"/>
+
+<!-- <link rel="stylesheet" href=""/> -->
+<!-- <script src="libs\JS\vue.js"></script> -->
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\JS\angular\angular-datepicker.js"></script>
+<script src="libs\JS\JQuery.js"></script>
+
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+
+<script src="JS\infraController.js"></script>
+<script src="JS\infraRouter.js"></script>
+<script src="JS\machineController.js"></script>
+<script src="JS\naviBar.js"></script>
+
+
+</head>
+<body ng-app="InfraModule">
+
+
+	<ng-include src="'/SSENVP/Header.html'"></ng-include>
+
+	<div class="container" ng-controller="infraRequestController">
+
+		<div class="" ng-show="showRequest">
+
+
+
+
+			<form role="form" ng-init="init()">
+
+				<div class="setup-content" id="step-1" data-ng-show="showStep1">
+
+
+					<div class="jumbotron">
+
+						<div class=" form-group">
+							<label>Splunk on-boarding request details</label>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class=" form-group required"
+									ng-class="{'has-error':appnameError}">
+									<label for="appname">Application Name</label> <select
+										ng-model="appname" class="form-control" id="appname" required
+										ng-change="getotherAppName()">
+										<option value="" selected disabled>Please Select
+											Application Name</option>
+										<option ng-repeat="appName in appNames">{{appName.APPNAME}}</option>
+										<option value="OtherApp">Other</option>
+
+									</select> <small id="Error" ng-show="appnameError"
+										class="form-text text-muted">Please Select Application
+										Name</small>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class=" form-group required"
+									ng-class="{'has-error':envError}">
+									<label for="environment">Environment</label> <select
+										ng-model="environment" class="form-control" id="environment"
+										required ng-change="getEnvType()">
+										<option value="" selected disabled>Please Select
+											Environment</option>
+										<option ng-repeat="envName in envNames">{{envName.ENVIORNMENT}}</option>
+										<option value="OtherEnv">Other</option>
+
+									</select> <small id="Error" ng-show="envError"
+										class="form-text text-muted">Please Select Environment
+										Name </small>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+
+								<div class=" form-group required"
+									ng-class="{'has-error':envTypeError}">
+									<label for="type">Environment Type</label> <select
+										ng-model="type" class="form-control" id="type"
+										ng-change="getEnvType()" required>
+										<option value="" selected disabled>Please Select
+											Environment Type</option>
+										<option ng-repeat="envType in envTypes">{{envType.TYPE}}</option>
+										<option value="OtherType">Other</option>
+
+									</select> <small id="Error" ng-show="envTypeError"
+										class="form-text text-muted">Please Select Environment
+										Type Name </small>
+								</div>
+							</div>
+							<!-- <div class="col-sm-4">
+								<div class=" form-group required"
+									ng-class="{'has-error':appnameError}">
+									<label for="appname">Application Name</label> <input
+										type="text" class="form-control has-error" id="appname"
+										placeholder="Enter Application Name" required> <small
+										id="error" ng-show="appnameError" class="form-text text-muted">Please
+										enter valid Application Name </small>
+
+								</div>
+							</div> -->
+
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div id="newAppText" class=" form-group required"
+									ng-class="{'has-error':newAppNameError}"
+									style="visibility: hidden">
+									<label for="newAppName">New Application Name</label> <input
+										type="text" class="form-control has-error" id="newAppName"
+										placeholder="Enter New Environment Name" required> <small
+										id="Error" ng-show="newAppNameError"
+										class="form-text text-muted">Please enter valid
+										Environment Name </small>
+
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div id="newEnvNameText" class=" form-group required"
+									ng-class="{'has-error':newEnvName}" style="visibility: hidden">
+									<label for="newEnvName">New Environment Name</label> <input
+										type="text" class="form-control has-error" id="newEnvName"
+										placeholder="Enter New Environment Name" required> <small
+										id="Error" ng-show="newEnvName" class="form-text text-muted">Please
+										enter valid Environment Name </small>
+
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div id="newEnvTypeText" class=" form-group required"
+									ng-class="{'has-error':newEnvTypeNameError}"
+									style="visibility: hidden">
+									<label for="newEnvTypeName">New Environment Type Name</label> <input
+										type="text" class="form-control has-error" id="newEnvTypeName"
+										placeholder="Enter New Environment Type Name" required>
+									<small id="Error" ng-show="newEnvTypeNameError"
+										class="form-text text-muted">Please enter valid
+										Environment Type Name </small>
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group required"
+									ng-class="{'has-error':hostnameError}">
+									<label for="hostname">Host Name</label> <input type="text"
+										class="form-control" id="hostname"
+										placeholder="Enter Host Name" required> <small
+										id="error" class="form-text text-muted"
+										ng-show="hostnameError">Please enter valid host name</small>
+								</div>
+							</div>
+							<div class="col-sm-4">
+
+								<div class="form-group required"
+									ng-class="{'has-error':emailIDError}">
+									<label for="emailID">Support DL</label> <input type="email"
+										class="form-control" id="emailID"
+										placeholder="Enter Support Email ID" required> <small
+										id="error" class="form-text text-muted" ng-show="emailIDError">Please
+										enter valid email id</small>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class=" form-group required"
+									ng-class="{'has-error':userIDError}">
+									<label for="userid">Requester Email ID</label> <input
+										type="text" class="form-control has-error" id="userID"
+										placeholder="Enter Requester Email ID" required> <small
+										id="Error" ng-show="userIDError" class="form-text text-muted">Please
+										enter valid Requester Email ID </small>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class=" form-group required"
+									ng-class="{'has-error':installDriveError}">
+									<label for="installDrive">Installation Location/Drive</label> <input
+										type="text" class="form-control has-error"
+										id="installDriveSelected" placeholder="Enter Drive Path"
+										required> <small id="Error"
+										ng-show="installDriveError" class="form-text text-muted">Please
+										enter valid Drive Path </small>
+								</div>
+							</div>
+
+							<!-- <div class=" form-group">
+								<label for="installDrive">Select Installation Drive</label> <select
+									class="form-control" id="installDriveSelected" required>
+									<option value="" selected disabled>Please select</option>
+									<option value="C">C</option>
+									<option value="D">D</option>
+									<option value="E">E</option>
+									<option value="F">F</option>
+									<option value="G">G</option>
+								</select>
+							</div>
+
+							<div class=" form-group">
+								<label for="otherdrive">Select Other Available Drives</label> <select
+									multiple class="form-control" id="otherDriveSelected"
+									name="otherDriveSelected[]" required>
+									<option value="C">C</option>
+									<option value="D">D</option>
+									<option value="E">E</option>
+									<option value="F">F</option>
+									<option value="G">G</option>
+								</select>
+							</div> -->
+							<div class="col-sm-4">
+								<div class=" form-group required"
+									ng-class="{'has-error':otherdriveError}">
+									<label for="otherdrive">Other Locations/Drives</label> <input
+										type="text" class="form-control has-error"
+										id="otherDriveSelected" placeholder="Enter Other Path"
+										required> <small id="Error" ng-show="otherdriveError"
+										class="form-text text-muted">Please enter valid Drive
+										Paths </small>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group required"
+									ng-class="{'has-error':poIDError}">
+									<label for="appmgremailID">Product Owner Email ID</label> <input
+										type="email" class="form-control" id="appmgremailID"
+										placeholder="Enter Product Owner Email ID" required> <small
+										id="error" class="form-text text-muted" ng-show="poIDError">Please
+										enter valid email id, should end with @team.telstra.com</small>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-4">
+
+								<div class="form-group required"
+									ng-class="{'has-error':osSelectedError}">
+									<label for="OS">Select OS</label> <select ng-model="osSelected"
+										class="form-control" id="osSelected" required
+										ng-change="getOStype()">
+										<option value="" selected disabled>Please Select OS</option>
+										<option value="Windows">Windows</option>
+										<option value="Linux">Linux</option>
+										<option value="Solaris">Solaris</option>
+										<option value="Cloud">Cloud</option>
+									</select> </select> <small id="Error" ng-show="osSelectedError"
+										class="form-text text-muted">Please Select OS Name </small>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group required"
+									ng-class="{'has-error':versionError}">
+									<label for="version">OS version</label> <input type="text"
+										class="form-control" id="version" placeholder="Enter Version"
+										required> <small id="error"
+										class="form-text text-muted" ng-show="versionError">Please
+										enter valid version</small>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div id="oracleSIDText" class=" form-group required"
+									ng-class="{'has-error':oracleSIDError}"
+									style="visibility: hidden">
+									<label for="oracleSID">Default/Primary Group/Oracle SID</label>
+									<input type="text" class="form-control has-error"
+										id="oracleSID" placeholder="Enter Default/Primary Group/Oracle SID Name"
+										required> <small id="Error" ng-show="oracleSIDError"
+										class="form-text text-muted">Please enter valid
+										Default/Primary Group/Oracle SID </small>
+
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<div id="owningIDText" class=" form-group required"
+									ng-class="{'has-error':owningIDError}"
+									style="visibility: hidden">
+									<label for="owningID">Owning Group/s</label> <input
+										type="text" class="form-control has-error" id="owningID"
+										placeholder="Enter Owning Group/s Name" required> <small
+										id="Error" ng-show="owningIDError"
+										class="form-text text-muted">Please enter valid
+										Owning Group/s Name </small>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-4">
+								<div id="groupIdText" class=" form-group "
+									ng-class="{'has-error':groupIdError}"
+									style="visibility: hidden">
+									<label for="groupId">Secondary Group/s </label> <input
+										type="text" class="form-control has-error" id="groupId"
+										placeholder="Enter Secondary Group/s Name"> <small
+										id="Error" ng-show="groupIdError" class="form-text text-muted">Please
+										enter valid Secondary Group/s Name </small>
+
+								</div>
+
+							</div>
+							<div class="col-sm-4">
+								<div id="secondaryIDText" class=" form-group required"
+									ng-class="{'has-error':secondaryIDError}"
+									style="visibility: hidden">
+									<label for="secondaryID">Primary/Secondary Group Admin
+										User ID </label> <input type="text" class="form-control has-error"
+										id="secondaryID" placeholder="Enter Primary/Secondary Group Admin
+										User ID Name">
+									<small id="Error" ng-show="secondaryIDError"
+										class="form-text text-muted">Please enter valid
+										Primary/Secondary Group Admin
+										User ID Name </small>
+
+								</div>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div id="secondaryEmailIDText" class=" form-group required"
+									ng-class="{'has-error':secondaryEmailIDError}"
+									style="visibility: hidden">
+									<label for="secondaryEmailID">Primary/Secondary Group
+										Admin email id </label> <input type="text"
+										class="form-control has-error" id="secondaryEmailID"
+										placeholder="Enter Primary/Secondary Group
+										Admin email id Name" required> <small
+										id="Error" ng-show="secondaryEmailIDError"
+										class="form-text text-muted">Please enter valid
+										Primary/Secondary Group
+										Admin email id Name </small>
+
+								</div>
+
+							</div>
+
+							<div class="col-sm-4">
+								<div id="givenNameText" class=" form-group required "
+									ng-class="{'has-error':givenNameError}"
+									style="visibility: hidden">
+									<label for="givenName">Primary/Secondary Group Admin
+										Given Name </label> <input type="text" class="form-control has-error"
+										id="givenName" placeholder="Enter Primary/Secondary Group Admin
+										Given Name"
+										required> <small id="Error" ng-show="givenNameError"
+										class="form-text text-muted">Please enter valid
+										Primary/Secondary Group Admin
+										Given Name </small>
+
+								</div>
+
+							</div>
+							<div class="col-sm-4">
+								<div id="surNameText" class=" form-group required"
+									ng-class="{'has-error':surNameError}"
+									style="visibility: hidden">
+									<label for="surName">Primary/Secondary Group Admin
+										Surname </label> <input type="text" class="form-control has-error"
+										id="surName" placeholder="Enter New Primary/Secondary Group Admin
+										Surname" required>
+									<small id="Error" ng-show="surNameError"
+										class="form-text text-muted">Please enter valid
+										Primary/Secondary Group Admin
+										Surname </small>
+
+								</div>
+
+							</div>
+							<div class="col-sm-4">
+								<div id="mobileNumberText" class=" form-group "
+									ng-class="{'has-error':mobileNumberError}"
+									style="visibility: hidden">
+									<label for="mobileNumber">Primary/Secondary Group Admin
+										telephone </label> <input type="text" class="form-control has-error"
+										id="mobileNumber" placeholder="Enter Primary/Secondary Group Admin
+										telephone">
+									<small id="Error" ng-show="mobileNumberError"
+										class="form-text text-muted">Please enter valid
+										Primary/Secondary Group Admin
+										telephone </small>
+
+								</div>
+
+							</div>
+						</div>
+
+						<div class=" form-group">
+
+							<div Class="nextResquest">
+								<button type="button"
+									class="btn col-md-2  next-button btn-primary pull-right"
+									ng-click="SubmitInstalationResquest()">Submit</button>
+							</div>
+						</div>
+
+
+
+					</div>
+			</form>
+
+
+		</div>
+
+
+		<div class="jumbotron" ng-if="showInstallationStatus">
+
+			<div align="center">
+				<p class="">
+					<b>Following request <requestNumber> initiated
+						by <emailID> for project <appname></b>
+				</p>
+			</div>
+			<table class="table ">
+				<thead>
+					<tr>
+						<th>Machine Name</th>
+						<th>Request Number</th>
+						<th>Build Comments</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="result in resultConfirmation">
+						<td>{{result.MACHINENAME}}</td>
+						<td>{{result.REQUEST_NUMBER}}</td>
+						<td>{{result.BUILD_COMMENTS}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class=" form-group" ng-if="showInstallationStatus">
+
+			<div Class="nextResquest">
+				<button type="button"
+					class="btn col-md-2  next-button btn-primary pull-right"
+					ng-click="init()">New Request</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<!-- <script src="bundle.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,64 @@
+"use strict";
+
+
+var infraRouter = null;
+
+
+(function(){
+	
+	infraRouter = {
+			
+			updateCleanMachineRequestDetails:updateCleanMachineRequestDetails,
+			
+			
+			getEnvName:getEnvName,
+			getEnvType:getEnvType,
+			
+			/* FAQ's */			
+			getQandA:getQandA,
+			
+	};
+	
+	
+	function updateCleanMachineRequestDetails($scope, $http,parameters){
+		$http.post('rest/api/updateCleanMachineDetails',parameters).then(function (response) {
+			if(response.status=200){
+				$scope.showRequest=false
+				$scope.showResultConfirmation=false;
+				$scope.showInstallationStatus=true;
+				$scope.resultConfirmation=response.data;
+			}
+			console.log("resultConfirmation",response);
+		});
+	}
+	
+
+	function getQandA($scope, $http){
+		$http.get('rest/api/questionAndAnswers').then(function (response) {
+			
+			$scope.questionAndAnswers=response.data;
+			
+			console.log("faqs",response);
+		});
+	}
+	
+	function getEnvName($scope, $http){
+		$http.get('rest/api/getEnvs').then(function (response) {
+			$scope.envNames=response.data;
+			console.log("envNames",response);
+		});
+	}
+	
+	/*function getTypeName($scope, $http){
+		$http.get('rest/api/getTypes').then(function (response) {
+			$scope.envTypes=response.data;
+			console.log("envTypes",response);
+		});
+	}*/
+	function getEnvType($scope, $http,parameters){
+		$http.post('rest/api/getEnvTypes',parameters).then(function (response) {
+			$scope.envTypes=response.data;
+			console.log("envTypes",response);
+		});
+	}
+})();

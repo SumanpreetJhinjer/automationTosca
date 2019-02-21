@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset="utf-8">
+<title>Dashbord</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
+  
+
+
+
+
+<script type="text/javascript" src="properties.json"></script>
+
+<!-- Script source for Encryption using Base64 Encryption algorithm  -->
+
+
+
+<style>
+
+html{
+
+min-height:100%;
+}
+
+body{
+min-height:100%;
+background-image: linear-gradient(to bottom right, #00b7f1, yellow);
+position: relative;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.jumbotron {
+
+  padding: 2rem 1rem;
+
+  margin-bottom: 2rem;
+
+  border-radius: 0.3rem;
+
+
+
+background: #006600;  /* old browsers fallback color*/
+
+/* background: -webkit-linear-gradient(to right, #2193b0 , #6dd5ed);
+
+background: linear-gradient(to right, #2193b0, #6dd5ed); */
+
+background-image: linear-gradient(to bottom right, #bf4099, #ef7b2e);
+}
+
+.hd1{
+
+    color:#fff;
+ }
+ 
+ .boxName{
+ height:140px;
+ }
+
+ .tooltip .tooltip-inner {
+    background-color:green;
+  }
+</style>
+
+
+
+</head>
+
+<body  >
+
+	<div >
+		
+		
+	</div>
+	<div class="container" style="margin-top:55px">
+			
+			
+
+			<div>
+				<a href="#" 
+					title="Environment Monitoring" data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Environment Monitoring</h2>
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-blackboard" style="font-size: 70px"
+										aria-hidden="true"></span>
+								</p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div>
+				<a href="#" 
+					title="Defect Management"
+					data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Defect Management</h2>
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-bell" style="font-size: 70px"
+										aria-hidden="true"></span>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div>
+				<a
+					href="#"
+					 title="IT Assets Management" data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">IT Assets Management</h2>
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-gift"
+										style="font-size: 70px" aria-hidden="true"></span>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div>
+				<a href="#"
+					 title="Config Management Services"
+					data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Config Management Services</h2>
+								
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-knight"
+										style="font-size: 70px" aria-hidden="true"></span>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			
+			<div>
+				<a href="#" 
+					title="Change Management" data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Change Management</h2>
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-wrench" style="font-size: 70px"
+										aria-hidden="true"></span>
+								</p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div>
+				<a href="#" 
+					title="Environment Platforms"
+					data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Environment Platforms</h2>
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-leaf" style="font-size: 70px"
+										aria-hidden="true"></span>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div>
+				<a
+					href="#"
+					 title="Certificate Renewal Management Services" data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Certificate Renewal</h2>
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-info-sign"
+										style="font-size: 70px" aria-hidden="true"></span>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div>
+				<a href="#"
+					 title="Shakeout Report"
+					data-placement="auto">
+					<div class="col-sm-3">
+						<div class="jumbotron" style="overflow: hidden;" align="center">
+							<div class="container" style="height: 250px;">
+							<div class="row boxName">
+								<h2 class="hd1 ">Shakeout Report</h2>
+								
+								</div>
+								<div class="row">
+								<p class="hd1" align="center">
+									<span class="glyphicon glyphicon-question-sign"
+										style="font-size: 70px" aria-hidden="true"></span>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			
+
+			
+			
+		<script>
+			$(document).ready(function() {
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+		</script>
+
+	</div>
+
+	<div id="footer"
+		style="background-color: #e0e0e0; padding-top: 7px; bottom: 0; position: fixed; text-align: justify; width: 100%; clear: both;">
+		<img style="width: 16%; padding-left: 12px"
+			src="img/Cognizant-Quality-Engineering-&-Assurance.png"> <span
+			style="float: right; font-size: 16px; padding-top: 6px; font-weight: bold; padding-right: 28px;">
+			</span>
+
+	</div>
+</body>

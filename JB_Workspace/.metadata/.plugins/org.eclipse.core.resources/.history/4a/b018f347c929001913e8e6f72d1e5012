@@ -1,0 +1,353 @@
+package infra.getDetails;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+import infra.DBConnections.ApplicationConnection;
+import infra.Emails.EmailReports;
+import infra.FactorySet.FactoryMethods;
+
+public class MachineDetails {
+	ApplicationConnection appCon=new ApplicationConnection();
+	FactoryMethods fm= new FactoryMethods();
+	public  int getMachineCount() throws SQLException{
+			
+			int machineCount = 0;
+			String query="select count(*) from infra_machinedetails where assigned_status='Available' and initial_build='Complete' and ASSIGNED_TEAM is null and PROJECT is null and requester_id is null";
+			Connection con=appCon.applicationDBConnection();
+			
+			try(Statement smt=con.createStatement()){
+				 ResultSet rl = smt.executeQuery(query);
+				 while(rl.next()) {
+					 machineCount = rl.getInt(1);
+				 }
+				
+				// con.close();
+			}catch(Exception E) {
+				System.out.println("Exception "+E);
+			}
+			finally {
+			    //It's important to close the statement when you are done with it
+				con.close();
+			}
+			
+			return machineCount;
+			
+		}
+	
+	public  int getCleanMachineCount(){
+		
+		int cleanmachineCount = 0;
+		String query="select count(*) from infra_machinedetails where assigned_status='Available' and initial_build='Clean' and ASSIGNED_TEAM is null and PROJECT is null and requester_id is null";
+		Connection con=appCon.applicationDBConnection();
+		
+		try(Statement smt=con.createStatement()){
+			 ResultSet rss = smt.executeQuery(query);
+			 while(rss.next()) {
+				 cleanmachineCount = rss.getInt(1);
+			 }
+			
+			// con.close();
+		}catch(Exception E) {
+			System.out.println("Exception "+E);
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return cleanmachineCount;
+		
+	}
+	
+	public ArrayList<HashMap<String, Object>> UpdateMachineDetails(HashMap details, String serverPath) throws FileNotFoundException, IOException {
+		ArrayList<HashMap<String, Object>> machineDetails=null;
+		
+		String userID = (String) details.get("userID");
+		String emailID = (String) details.get("emailID");
+		String teamName = (String) details.get("teamName");
+		String project = (String) details.get("project");
+		String purpose = (String) details.get("purpose");
+		String softwareSelected = (String) details.get("softwareList");
+		String startDate = (String) details.get("minDateSelected");
+		String endDate = (String) details.get("maxDateSelected");
+		int machineCount = Integer.parseInt((String)details.get("machineCount"));
+		
+		machineDetails=getMachineDetails(userID,emailID,teamName,project,purpose,machineCount,softwareSelected,startDate,endDate);
+		
+		EmailReports reports=new EmailReports();
+		String emailStatus=reports.requestCompleteEmail(serverPath,userID,emailID,teamName,project, machineDetails);
+		
+		
+		return machineDetails;
+	}
+	
+	public ArrayList<HashMap<String, Object>> UpdateCleanMachineDetails(HashMap details, String serverPath) throws FileNotFoundException, IOException {
+		ArrayList<HashMap<String, Object>> machineDetails=null;
+		
+		String appname = (String) details.get("appname");
+		String emailID = (String) details.get("emailID");
+		String environment = (String) details.get("environment");
+		String type = (String) details.get("type");
+		String installDrive = (String) details.get("installDrive");
+		String hostname = (String) details.get("hostname");
+		String osSelect = (String) details.get("osSelect");
+		String otherDrive = (String) details.get("otherDrive");
+		machineDetails=getCleanMachineDetails(appname,emailID,environment,type,installDrive,hostname,osSelect,otherDrive);
+		
+		EmailReports reports=new EmailReports();
+		String emailStatus=reports.requestBuildEmail(serverPath,appname,emailID,environment,type, machineDetails);
+		
+		
+		return machineDetails;
+	}
+	
+	public ArrayList<HashMap<String, Object>> getMachineDetails(String userID,String emailID,String teamName,String project,String purpose,int machineCount,String softwareSelected, String startDate, String endDate) {
+		ArrayList<HashMap<String, Object>> result=null;
+		
+		
+		
+		String getmachineQuery="select * from infra_machinedetails where assigned_status='Available' and initial_build='Complete' "
+				+ " and ASSIGNED_TEAM is null and PROJECT is null and requester_id is null and ROWNUM <="+machineCount;
+		Connection con=appCon.applicationDBConnection();
+		try(ResultSet rss = con.createStatement().executeQuery(getmachineQuery) ){
+			result=fm.resultSetToArrayList(rss);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		updateQuery(result, userID, emailID, teamName, project, purpose, softwareSelected,startDate,endDate);
+		
+		return result;
+	}
+	
+	public ArrayList<HashMap<String, Object>> getCleanMachineDetails(String appname,String emailID,String environment,String type,String installDrive,String hostname, String osSelect, String otherDrive ) {
+		ArrayList<HashMap<String, Object>> result=null;
+		
+		
+		
+		String getmachineQuery="select * from infra_machinedetails where assigned_status='Available' and initial_build='Clean' "
+				+ " and ASSIGNED_TEAM is null and PROJECT is null and requester_id is null";
+		Connection con=appCon.applicationDBConnection();
+		try(ResultSet rss = con.createStatement().executeQuery(getmachineQuery) ){
+			result=fm.resultSetToArrayList(rss);
+			updateCleanQuery(result, userID, emailID, teamName, project, purpose);
+			/*RemoteExecution rex= new RemoteExecution();
+			rex.connectRemoteComputer();*/
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return result;
+	}
+
+	public String updateCleanQuery(ArrayList<HashMap<String, Object>> machineDetails, String userID,String emailID,String teamName, String project, String purpose) {
+		String updateResult=null;
+		String machineNames="";
+		int i=0;
+		for (HashMap<String, Object> entry : machineDetails) {
+			
+		    for (String key : entry.keySet()) {
+		    	if(key.equalsIgnoreCase("MACHINENAME")) {
+		    		Object value = entry.get(key);
+		    		if(i==0) {
+		    			machineNames=machineNames+"'"+(String)value+"'";
+		    		}
+		    		else if(i>=1) {
+		    			machineNames=machineNames+",'"+(String)value+"'";
+		    		}
+		    		
+		    	}
+		        
+		    }
+		    i=i+1;
+		}
+		String requestNumber="1000";
+//		        System.out.println("key = " + key);
+		String updateQuery="UPDATE infra_machinedetails SET assigned_status='Not Available', ASSIGNED_TEAM='"+teamName+"', PROJECT='"+project+"', REQUESTER_ID='"+userID+"' , INITIAL_BUILD='In Progress' , REQUEST_NUMBER='"+requestNumber+"' WHERE  MACHINENAME IN ("+machineNames+")";
+		Connection con=appCon.applicationDBConnection();
+		try{
+			int executeUpdate = con.createStatement().executeUpdate(updateQuery);
+			System.out.println("executeUpdate "+executeUpdate);
+			updateResult="";
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return updateResult;
+		
+	}
+
+	
+	public String updateQuery(ArrayList<HashMap<String, Object>> machineDetails, String userID,String emailID,String teamName, String project, String purpose,String softwareSelected,String startDate,String endDate)  {
+		String updateResult=null;
+		String machineNames="";
+		int i=0;
+		for (HashMap<String, Object> entry : machineDetails) {
+			
+		    for (String key : entry.keySet()) {
+		    	if(key.equalsIgnoreCase("MACHINENAME")) {
+		    		Object value = entry.get(key);
+		    		if(i==0) {
+		    			machineNames=machineNames+"'"+(String)value+"'";
+		    		}
+		    		else if(i>=1) {
+		    			machineNames=machineNames+",'"+(String)value+"'";
+		    		}
+		    		
+		    	}
+		        
+		    }
+		    i=i+1;
+		}
+		
+//		        System.out.println("key = " + key);
+		Statement st=statementFactoryForApp();
+		Connection con=appCon.applicationDBConnection();
+		try{
+			
+			String pattern = "dd-MM-yyyy";
+			String sqlpattern = "dd/MMM/yyyy";
+			
+			SimpleDateFormat parseDate = new SimpleDateFormat(pattern);
+			SimpleDateFormat sqlDateFormat = new SimpleDateFormat(sqlpattern);
+			Date startDateFormat=parseDate.parse(startDate);
+			String startDateFormated = sqlDateFormat.format(startDateFormat);
+			
+			Date endDateFormat=parseDate.parse(endDate);
+			String endDateFormated = sqlDateFormat.format(endDateFormat);
+			
+			System.out.println(startDateFormated);
+			String updateQuery="UPDATE infra_machinedetails SET assigned_status='Not Available', ASSIGNED_TEAM='"+teamName+"', PROJECT='"+project+"', REQUESTER_ID='"+userID+"', SOFTWARE_SELECTED='"+softwareSelected+"', "
+					+ "STARTDATE='"+startDateFormated+"', ENDDATE='"+endDateFormated+"', PURPOSE='"+purpose+"' WHERE  MACHINENAME IN ("+machineNames+")";
+			
+			Boolean ret = st.execute(updateQuery);
+			
+			int executeUpdate = st.executeUpdate(updateQuery);
+					//con.createStatement().executeQuery(updateQuery);
+			/*con.commit();*/
+			System.out.println("executeUpdate "+executeUpdate);
+			updateResult="";
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		catch(Throwable e) 
+		{
+		   e.printStackTrace();
+		}
+		finally {
+			try {
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return updateResult;
+		
+	}
+	
+	public  Statement statementFactoryForApp(){
+
+		Statement statementForApp=null;
+		try {
+			statementForApp = appCon.applicationDBConnection()
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return statementForApp;
+		
+		
+	}
+	
+	public ArrayList<HashMap<String, Object>> allocatedMachineDetails(HashMap details)  {
+		ArrayList<HashMap<String, Object>> allocatedMachineDetails=null;
+		
+		String allocatedTeamName = (String) details.get("teamSelected");
+		String allocatedProject = (String) details.get("projectSelected");
+		String allocatedOwner = (String) details.get("ownerSelected");
+		String whereCondition="";
+		System.out.println("allocatedTeamName ="+allocatedTeamName+"allocatedTeamName length="+allocatedTeamName.length()+"is empty"+allocatedTeamName.isEmpty());
+		if(!isNullOrEmpty(allocatedTeamName)) {
+			whereCondition=whereCondition+" and ASSIGNED_TEAM = '"+allocatedTeamName+"'";
+		}
+		if( !isNullOrEmpty(allocatedProject)) {
+			whereCondition=whereCondition+" and PROJECT = '"+allocatedProject+"'";
+		}
+		if( !isNullOrEmpty(allocatedOwner)) {
+			whereCondition=whereCondition+" and OWNER = '"+allocatedOwner+"'";
+		}
+		String getAllocatedMachineQuery="select * from infra_machinedetails where ASSIGNED_STATUS='Not Available' "+whereCondition;
+		Connection con=appCon.applicationDBConnection();
+		try(ResultSet rss = con.createStatement().executeQuery(getAllocatedMachineQuery) ){
+			allocatedMachineDetails=fm.resultSetToArrayList(rss);
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return allocatedMachineDetails;
+	}
+	
+	public static boolean isNullOrEmpty(String str) {
+        if(str != null && !str.isEmpty())
+            return false;
+        return true;
+    }
+
+}

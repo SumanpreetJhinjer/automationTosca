@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet"
+	href="libs\bootstrap\css\bootstrap-select.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+
+
+<script src="libs\JS\JQuery.js"></script>
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+<script src="libs\bootstrap\js\bootstrap-select.min.js"></script>
+<script src="JS\wikiLinksController.js"></script>
+<script src="JS\infraRouter.js"></script>
+</head>
+
+<body ng-app="InfraWikiLinkModule">
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+	<div class="container" ng-controller="infraWikiLinkController">
+		<div class="jumbotron">
+		<div class="faqHeading" align="center">
+			<h3>Frequently asked questions & WiKi Links</h3>
+		</div>
+			<div class="updatesDiv">
+			
+  				<div class="well updatesContent" ng-repeat="questionAndAnswer in questionAndAnswers">
+  				<a data-toggle="collapse" data-target="{{questionAndAnswer.FAQ_ID}}"><h4 class="updatesHeading">{{questionAndAnswer.FAQ_QUESTION}} ?</h4></a>
+  				<div class="collapse" id="{{questionAndAnswer.FAQ_ID}}">
+  				<span><h6 class="">{{questionAndAnswer.FAQ_ANSWER}}</h6></span>
+  				<span>Link: <a href="{{questionAndAnswer.FAQ_LINKS}}">{{questionAndAnswer.FAQ_LINKS}}</a></span>
+  				</div>
+  				</div>
+			</div>
+		</div>
+		
+		
+
+	</div>
+	
+</body>
+</html>

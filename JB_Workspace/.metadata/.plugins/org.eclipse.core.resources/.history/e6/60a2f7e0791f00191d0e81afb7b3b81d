@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infrastructure Self Serve Portal</title>
+<link rel="stylesheet" href="libs\bootstrap\css\bootstrap.min.css" />
+<link rel="stylesheet"
+	href="libs\bootstrap\css\bootstrap-select.min.css" />
+<link rel="stylesheet" href="libs\css\styles.css">
+<link rel="stylesheet" href="libs\css\ToogleSwitch.css">
+
+
+
+<script src="libs\JS\JQuery.js"></script>
+<script src="libs\JS\angular\angular.js"></script>
+<script src="libs\bootstrap\js\bootstrap.min.js"></script>
+<script src="libs\bootstrap\js\bootstrap-select.min.js"></script>
+<script src="JS\wikiLinksController.js"></script>
+</head>
+
+<body ng-app="InfraWikiLinkModule">
+	<ng-include src="'/SSINFRAP/Header.html'"></ng-include>
+	<div class="container" ng-controller="infraHomeController">
+		<div class="jumbotron">
+			<div class="header " align="center">
+				<strong class="welcomeMessage"> Welcome to Enablers
+					Infrastructure Self Serve Portal</strong>
+			</div>
+			
+			<div class="updatesDiv">
+			<h4 class="updatesHeading">Updates from the hub</h4>
+  				<div class="well updatesContent">updates sample</div>
+			</div>
+		</div>
+		
+		
+
+	</div>
+	
+</body>
+</html>
