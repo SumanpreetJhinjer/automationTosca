@@ -1,0 +1,107 @@
+[3] 2:56:52 PM: Log started for 'C:\Tosca_Projects\TOSCA_Workspaces\ISFUL_Actual\ISFUL_Actual.tws'
+[3] 2:56:52 PM: Log level: 4
+[3] 2:56:52 PM: Release: 11.2.0.14672
+[3] 2:56:52 PM:  + DistributedExecutionAddIn: DistributedExecutionAddIn 11.2.0.994 (13484)
+[3] 2:56:52 PM:  + ExploratoryTestingAssistant: ExploratoryTestingAssistantAddIn 11.2.0.994 (14372)
+[3] 2:56:52 PM:  + IntegrationManagementAddIn: IntegrationManagementAddIn 11.2.0.994 (13545)
+    + : SAPSolutionManagerIntegration 11.2.0.994 (14824)
+[3] 2:56:52 PM:  + OptIntAddIn: OptIntAddIn 11.2.0.994 (12612)
+[3] 2:56:52 PM:  + RemoteControl: RemoteControlAddIn 11.2.0.994 (12612)
+[3] 2:56:52 PM:  + Reporting: ReportingAddIn 11.2.0.994 (14114)
+[3] 2:56:52 PM:  + Requirements: RequirementsManagement 11.2.0.994 (13701)
+[3] 2:56:52 PM:  + SAPSolutionManagerAddIn: SAPSolutionManagerAddIn 11.2.0.994 (12612)
+[3] 2:56:52 PM:  + SoapUiImporterAddIn: SoapUiImporterAddIn 11.2.0.994 (13572)
+[3] 2:56:52 PM:  + TestCaseDesign: TestCaseDesign 11.2.0.994 (13410)
+[3] 2:56:52 PM:  + ControlFlowDiagram: TestCaseVisualizationAddIn 11.2.0.994 (12612)
+[3] 2:56:52 PM:  + XDefinitions: XDefinitions 11.2.0.994 (14672)
+[3] 2:56:52 PM: Opened from Workspace File 'C:\Tosca_Projects\TOSCA_Workspaces\ISFUL_Actual\ISFUL_Actual.tws'
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'TestCases''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Ready'
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'Modules''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'Requirements''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'TestCaseDesign''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'Execution''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'Issues''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'Configurations''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh navigation view 'TestPlanning''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'TestCases''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Ready'
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'Modules''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'Requirements''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'TestCaseDesign''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'Execution''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'Issues''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'Configurations''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh detail view 'TestPlanning''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 2:57:33 PM:  ShowStatusInfo: 'Refresh all finished'
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'TestCases''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Ready'
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'Modules''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'Requirements''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'TestCaseDesign''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'Execution''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'Issues''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'Configurations''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh navigation view 'TestPlanning''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'TestCases''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Ready'
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'Modules''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'Requirements''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'TestCaseDesign''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'Execution''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'Issues''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'Configurations''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh detail view 'TestPlanning''
+[4] 2:57:38 PM:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh all finished'
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'TestCases''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Ready'
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'Modules''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'Requirements''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'TestCaseDesign''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'Execution''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'Issues''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'Configurations''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh navigation view 'TestPlanning''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'TestCases''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Ready'
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'Modules''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'Requirements''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'TestCaseDesign''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'Execution''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'Issues''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'Configurations''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh detail view 'TestPlanning''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 2:57:40 PM:  ShowStatusInfo: 'Refresh all finished'
+[3] 2:57:40 PM: OpenWorkspace took 00:00:48.7768000 to finish
+[4] 2:57:45 PM:  ShowStatusInfo: 'Ready'
+[0] 2:59:55 PM: ShowDetailedErrorMessage  (fatal)
+[0] 2:59:55 PM: Exception of type 'System.OutOfMemoryException' was thrown.
+[0] 2:59:55 PM: ShowDetailedErrorMessage  (fatal)
+[0] 2:59:55 PM: Exception of type 'System.OutOfMemoryException' was thrown.
+[0] 2:59:55 PM: System.OutOfMemoryException: Exception of type 'System.OutOfMemoryException' was thrown.
+   at DevExpress.XtraBars.MessageFilter.BarManagerMessageFilter.OnApplicationExit(Object sender, EventArgs e)
+   at System.EventHandler.Invoke(Object sender, EventArgs e)
+   at System.Windows.Forms.Application.RaiseExit()
+   at System.Windows.Forms.Application.ThreadContext.Dispose(Boolean postQuit)
+   at System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   at System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   at Tricentis.TCCore.GUI.Program.Main(String[] args)
+[0] 2:59:55 PM: ShowDetailedErrorMessage  (fatal)
+[0] 2:59:55 PM: Exception of type 'System.OutOfMemoryException' was thrown.
+[0] 2:59:55 PM: System.OutOfMemoryException: Exception of type 'System.OutOfMemoryException' was thrown.
+   at Tricentis.TCCore.Persistency.ExceptionHelper.AppendProcessInfo(Process process, StringBuilder sb)
+   at Tricentis.TCCore.Persistency.ExceptionHelper.GetDiagnosticInfo()
+   at Tricentis.TCCore.GUI.Tasks.FormHelper.ShowDetailedErrorMessage(Exception exception, Boolean fatal)
+   at Tricentis.TCCore.GUI.Program.Main(String[] args)
+[0] 2:59:55 PM: System.OutOfMemoryException: Exception of type 'System.OutOfMemoryException' was thrown.
+   at System.Runtime.CompilerServices.RuntimeHelpers._PrepareMethod(IRuntimeMethodInfo method, IntPtr* pInstantiation, Int32 cInstantiation)
+   at Tricentis.TCAddIns.ExploratoryTestingAssistant.ExploratoryTestingAssistantAddIn.<>c.<PreloadXTA>b__98_0()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+[3] 3:04:49 PM: Closing Workspace!
